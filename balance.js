@@ -10,13 +10,13 @@ const {
 
 const pubKey = new PublicKey("DxKc73eJX5J1kY5ND69hnLs7ox64Q2exN3BVUWxBtBjo");
 
-console.log(pubKey);
+//console.log(pubKey.toString());
 const getWalletBalance = async () => {
     try {
-        console.log("hello world")
+        //console.log("hello world")
         const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
         const walletBalance = await connection.getBalance(pubKey);
-        console.log('Wallet address is ${pubKey}');
+        console.log(`Wallet address is ${pubKey}`);
         console.log(walletBalance);
     } catch (err) {
         console.log(err)
