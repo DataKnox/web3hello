@@ -17,6 +17,7 @@ const SOL_TLD_AUTHORITY = new PublicKey(
     "58PwtjSDuFHuUkYjH9BYnnQKHfwo9reZhC2zMJv9JPkx"
 );
 
+const domain = "knoxtrades.sol"
 
 const getInputKey = async (input) => {
     let hashed_input_name = await getHashedName(input);
@@ -29,10 +30,9 @@ const getInputKey = async (input) => {
 };
 
 
-// ...
 const main = async () => {
     const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
-    const { inputDomainKey } = await getInputKey("knoxtrades");
+    const { inputDomainKey } = await getInputKey(domain.replace(".sol", ""));
     const registry = await NameRegistryState.retrieve(
         connection,
         inputDomainKey
