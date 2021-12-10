@@ -7,17 +7,13 @@ const {
     Connection,
     PublicKey,
     clusterApiUrl,
-    Keypair,
-    LAMPORTS_PER_SOL,
-    Transaction,
-    Account,
 } = require("@solana/web3.js");
 // Address of the SOL TLD
 const SOL_TLD_AUTHORITY = new PublicKey(
     "58PwtjSDuFHuUkYjH9BYnnQKHfwo9reZhC2zMJv9JPkx"
 );
 
-const domain = "knoxtrades.sol"
+const domain = "nomey.sol"
 
 const getInputKey = async (input) => {
     let hashed_input_name = await getHashedName(input);
@@ -41,4 +37,3 @@ const main = async () => {
 }
 
 main()
-
