@@ -2,6 +2,7 @@ const {
     Connection,
     PublicKey,
     clusterApiUrl,
+    LAMPORTS_PER_SOL,
 } = require("@solana/web3.js");
 const TOKEN_PROGRAM = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
 
@@ -17,13 +18,12 @@ const getTokens = async () => {
         let nonZeroAccounts = tokenAccts?.value?.filter(
             (obj) => obj.account.data.parsed.info.tokenAmount.uiAmount > 0
         );
+        // Lookup Mint public key https://cdn.jsdelivr.net/gh/solana-labs/token-list@main/src/tokens/solana.tokenlist.json
         for (let acct of nonZeroAccounts) {
-            console.log(`Token account ${acct.pubkey.toBase58()} has balance ${acct.account.data.parsed.info.tokenAmount.amount}`)
+            if (acct.account.data.parsed.info.mint == "8o66EVAf4u2Hr21m2tuRrPtEXFPLr8G8aL1ETStP8fDu") {
+                console.log(`VIBE token balance is ${acct.account.data.parsed.info.tokenAmount.amount / LAMPORTS_PER_SOL}`)
+            }
         }
-        // let mapAcctsKey = nonZeroAccounts.map((obj) => obj.pubkey.toBase58());
-        // let mapAcctsInfo = nonZeroAccounts.map((obj) => obj.account.data.parsed.info);
-
-
     } catch (err) {
         console.log(err)
     }
