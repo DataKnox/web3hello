@@ -18,7 +18,7 @@ const getWalletBalance = async () => {
         const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
         const myWallet = await Keypair.fromSecretKey(privKey);
         const walletBalance = await connection.getBalance(new PublicKey(myWallet.publicKey));
-        console.log('Wallet address is ${pubKey}');
+        console.log(`Wallet address is ${pubKey}`);
         console.log(walletBalance);
     } catch (err) {
         console.log(err)
@@ -29,8 +29,13 @@ const airDropSol = async () => {
     try {
         const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
         const walletKeyPair = await Keypair.fromSecretKey(privKey)
-        const fromAirDropSignature = await connection.requestAirdrop(new PublicKey(walletKeyPair.publicKey), 5 * LAMPORTS_PER_SOL);
-        await connection.confirmTransaction(fromAirDropSignature)
+        const fromAirDropSignature = await connection.requestAirdrop(new PublicKey(walletKeyPair.publicKey), 1 * LAMPORTS_PER_SOL);
+        const latestBlockHash = await connection.getLatestBlockhash();
+        await connection.confirmTransaction({
+            blockhash: latestBlockHash.blockhash,
+            lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+            signature: fromAirDropSignature,
+        });
     } catch (err) {
         console.log(err)
     }
